@@ -15,7 +15,6 @@ build:
 
 requirements:
   build:
-    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
     - python
@@ -26,7 +25,7 @@ requirements:
     - libgdal >=2.4.0
     # https://github.com/geopandas/pyogrio/blob/v0.10.0/pyproject.toml#L5
     - versioneer ==0.28
-    - tomli 2.0.1 # [py<311]
+    - tomli 2.0.1  # [py<311]
   run:
     - python
     - libgdal
