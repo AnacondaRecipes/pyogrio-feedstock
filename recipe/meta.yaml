@@ -24,14 +24,14 @@ requirements:
     - setuptools
     - cython >=0.29
     # https://github.com/geopandas/pyogrio/blob/v0.10.0/setup.py#L24
-    - libgdal >=2.4.0
+    - libgdal {{ libgdal }}
     # Use versioneer 0.29 for py313 instead of 0.28
     # https://github.com/geopandas/pyogrio/blob/v0.10.0/pyproject.toml#L5
-    - versioneer ==0.29
-    - tomli 2.0.1  # [py<311]
+    - versioneer
+    - tomli  # [py<311]
   run:
     - python
-    - libgdal
+    - libgdal # bounds through run_exports
     # https://github.com/geopandas/pyogrio/blob/v0.10.0/pyproject.toml#L31
     - certifi
     - packaging
