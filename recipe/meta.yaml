@@ -24,7 +24,7 @@ requirements:
     - setuptools
     - cython >=0.29
     # https://github.com/geopandas/pyogrio/blob/v0.10.0/setup.py#L24
-    - libgdal-core {{ libgdal }}
+    - libgdal-core {{ libgdal_core }}
     # Use versioneer 0.29 for py313 instead of 0.28
     # https://github.com/geopandas/pyogrio/blob/v0.10.0/pyproject.toml#L5
     - versioneer
