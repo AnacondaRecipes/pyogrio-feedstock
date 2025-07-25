@@ -10,12 +10,12 @@ source:
   sha256: ec051cb568324de878828fae96379b71858933413e185148acb6c162851ab23c
 
 build:
-  number: 0
-  # skip s390x: no libgdal
-  skip: true  # [py<39 or s390x]
+  number: 1
+  skip: true  # [py<39]
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
@@ -24,14 +24,14 @@ requirements:
     - setuptools
     - cython >=0.29
     # https://github.com/geopandas/pyogrio/blob/v0.10.0/setup.py#L24
-    - libgdal {{ libgdal }}
+    - libgdal-core {{ libgdal_core }}
     # Use versioneer 0.29 for py313 instead of 0.28
     # https://github.com/geopandas/pyogrio/blob/v0.10.0/pyproject.toml#L5
     - versioneer
     - tomli  # [py<311]
   run:
     - python
-    - libgdal # bounds through run_exports
+    - libgdal-core # bounds through run_exports
     # https://github.com/geopandas/pyogrio/blob/v0.10.0/pyproject.toml#L31
     - certifi
     - packaging
@@ -52,7 +52,9 @@ test:
     # Skip tests that require a network connection
     # and tests that require the Arrow write API
     # https://github.com/geopandas/pyogrio/blob/v0.10.0/setup.cfg#L5-L6
-    - pytest -vv -m "not (network or requires_arrow_write_api)" pyogrio/tests
+    # test_detect_write_driver_multiple_unsupported: test removed in 0.11 (with explicit introduction of gdal 3.11 compatibility)
+    # test_read_bounds_where_invalid: different error expected with gdal 3.11: https://github.com/geopandas/pyogrio/blob/v0.11.0/pyogrio/tests/test_core.py#L289
+    - pytest -vv -m "not (network or requires_arrow_write_api)" -k "not (test_detect_write_driver_multiple_unsupported or test_read_bounds_where_invalid)" pyogrio/tests
 
 about:
   home: https://github.com/geopandas/pyogrio/
