@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/geopandas/pyogrio/releases/download/v{{ version }}/pyogrio-{{ version }}.tar.gz
+  url: https://github.com/geopandas/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz
   sha256: e548ab705bb3e5383693717de1e6c76da97f3762ab92522cb310f93128a75ff1
 
 build:
@@ -23,7 +23,7 @@ requirements:
     - pip
     - setuptools
     - cython >=3.1
-    # https://github.com/geopandas/pyogrio/blob/v0.10.0/setup.py#L24
+    # https://github.com/geopandas/pyogrio/blob/v0.12.1/setup.py#L24
     - libgdal-core {{ libgdal_core }}
     # https://github.com/geopandas/pyogrio/blob/v0.12.1/pyproject.toml#L3-L8
     - versioneer ==0.28  # [py<313]
@@ -51,7 +51,7 @@ test:
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     # Skip tests that require a network connection
     # and tests that require the Arrow write API
-    # https://github.com/geopandas/pyogrio/blob/v0.10.0/setup.cfg#L5-L6
+    # https://github.com/geopandas/pyogrio/blob/v0.12.1/setup.cfg#L4-L6
     # test_detect_write_driver_multiple_unsupported: test removed in 0.11 (with explicit introduction of gdal 3.11 compatibility)
     # test_read_bounds_where_invalid: different error expected with gdal 3.11: https://github.com/geopandas/pyogrio/blob/v0.11.0/pyogrio/tests/test_core.py#L289
     - pytest -vv -m "not (network or requires_arrow_write_api)" -k "not (test_detect_write_driver_multiple_unsupported or test_read_bounds_where_invalid)" pyogrio/tests
