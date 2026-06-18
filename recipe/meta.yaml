@@ -54,7 +54,9 @@ test:
     # https://github.com/geopandas/pyogrio/blob/v0.12.1/setup.cfg#L4-L6
     # test_detect_write_driver_multiple_unsupported: test removed in 0.11 (with explicit introduction of gdal 3.11 compatibility)
     # test_read_bounds_where_invalid: different error expected with gdal 3.11: https://github.com/geopandas/pyogrio/blob/v0.11.0/pyogrio/tests/test_core.py#L289
-    - pytest -vv -m "not (network or requires_arrow_write_api)" -k "not (test_detect_write_driver_multiple_unsupported or test_read_bounds_where_invalid)" pyogrio/tests
+    # test_write_float_nan_null: returned json with GDAL 3.13 has different whitespace formatting than in previous
+    # version, which tests assert exactly against. can be restored once issue is resolved in upstream tests.
+    - pytest -vv -m "not (network or requires_arrow_write_api)" -k "not (test_detect_write_driver_multiple_unsupported or test_read_bounds_where_invalid or test_write_float_nan_null)" pyogrio/tests
 
 about:
   home: https://github.com/geopandas/pyogrio/
